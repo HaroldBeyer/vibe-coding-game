@@ -44,13 +44,13 @@ export type PanicState = {
 export function calmState(): PanicState {
     return { mode: 'calm', until: 0, cooldownUntil: 0, lastThreatAt: -Infinity, angle: 0 };
 }
-export function panicStep(state: PanicState, now: number, detected: boolean, random = Math.random): PanicState {
+export function panicStep(state: PanicState, now: number, detected: boolean, random = Math.random, chance = PANIC_CHANCE): PanicState {
     const freshThreat = detected && now - state.lastThreatAt > C.panic.newEncounterSeconds;
     const next = { ...state, lastThreatAt: detected ? now : state.lastThreatAt };
     if (state.mode !== 'calm' && now < state.until)
         return next;
     next.mode = 'calm';
-    if (!freshThreat || now < state.cooldownUntil || random() >= PANIC_CHANCE)
+    if (!freshThreat || now < state.cooldownUntil || random() >= chance)
         return next;
     next.mode = random() < C.panic.freezePercent / 100 ? 'freeze' : 'flee';
     const min = next.mode === 'freeze' ? C.panic.freezeMin : C.panic.fleeMin;

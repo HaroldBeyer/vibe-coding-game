@@ -31,9 +31,9 @@ export class Pistol {
         return true;
     }
 }
-export function zombieHit(health: number, roll: number) {
+export function zombieHit(health: number, roll: number, mutant = false) {
     const critical = roll < CRITICAL_CHANCE;
-    return { health: Math.max(0, health - (critical ? Math.max(health, ZOMBIE_HEALTH) : C.pistol.damage)), critical };
+    return { health: Math.max(0, health - (critical ? (mutant ? C.mutant.health / C.mutant.criticalHits : Math.max(health, ZOMBIE_HEALTH)) : C.pistol.damage)), critical };
 }
 export type CivilianState = {
     health: number;
@@ -48,4 +48,13 @@ export function biteCivilian(state: CivilianState, now: number) {
         state: { health, hurtUntil: now + C.civilian.invulnerability, infected: health === 0 },
         converted: health === 0,
     };
+}
+
+export function shotAngle(aim: number, recoil: number, moving: boolean, roll: number, lightPenalty = 0) {
+    const spread = lightPenalty + C.pistol.spread + (moving ? C.pistol.movingSpread : 0) + Math.min(C.pistol.maxRecoil, recoil);
+    return aim + (roll * 2 - 1) * spread;
+}
+export function humanKill(kills: number, mutant: boolean) {
+    const next = kills + 1;
+    return { kills: next, evolves: !mutant && next >= C.mutant.killsToEvolve };
 }

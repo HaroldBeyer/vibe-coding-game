@@ -1,1 +1,26 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101313"><title>Dead District — protótipo</title></head><body><main id="app"></main><script type="module" src="/src/main.ts"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101a1b">
+  <title>Dead District — Neustadt</title>
+</head>
+<body>
+  <header class="masthead">
+    <div><p class="eyebrow">NEUSTADT / DEUTSCHLAND</p><h1>DEAD DISTRICT</h1></div>
+    <div class="sector"><i></i>SPERRGEBIET · KEINE EVAKUIERUNG</div>
+  </header>
+<main id="app" aria-label="Jogo Dead District"></main>
+  <footer class="controls">
+    <span><b>WASD / SETAS</b> mover &nbsp; <b>SHIFT</b> correr &nbsp; <b>MOUSE</b> mirar / atirar · direito: corpo a corpo</span>
+    <span><b>CLIQUE / F</b> portas e NPCs &nbsp; <b>R / E</b> recarregar &nbsp; <b>P</b> pausar &nbsp; <b>ENTER</b> reiniciar</span>
+  </footer>
+  <section class="audio-controls" aria-label="Controles de áudio">
+    <button id="audio-toggle" type="button" aria-pressed="false">ATIVAR ÁUDIO [M]</button>
+    <label for="music-volume">TRILHA <input id="music-volume" type="range" min="0" max="100" step="1" aria-label="Volume da trilha"></label>
+    <label for="effects-volume">EFEITOS <input id="effects-volume" type="range" min="0" max="100" step="1" aria-label="Volume dos efeitos"></label>
+  </section>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
